@@ -6,26 +6,25 @@ import random
 
 def main():
     intro()
-    test = open('Santa.txt', 'w')
-    for person in e:
+    txt = open('Santa.txt', 'w')
+    for person in everyone:
         fam = find_family(person, family)
-        first = random.choice(everyone)
+        first = random.choice(everyone_pool)
         while first in fam:
-            first = random.choice(everyone)
-        everyone.remove(first)
-
-        second = random.choice(everyone)
+            first = random.choice(everyone_pool)
+        everyone_pool.remove(first)
+        second = random.choice(everyone_pool)
         while second in fam or second == first:
-            second = random.choice(everyone)
-        everyone.remove(second)
+            second = random.choice(everyone_pool)
+        everyone_pool.remove(second)
         print('{p}:'.format(p=person))
         print(first)
         print(second)
         print()
-        test.write('{}:\n'.format(person))
-        test.write(first + '\n')
-        test.write(second + '\n' + '\n')
-    test.close()
+        txt.write('{}:\n'.format(person))
+        txt.write(first + '\n')
+        txt.write(second + '\n' + '\n')
+    txt.close()
 
 
 def intro():
@@ -35,7 +34,7 @@ def intro():
 
 
 def find_family(person, family_name):
-    for fam in family:
+    for fam in family_name:
         if person in fam:
             return fam
 
@@ -46,13 +45,8 @@ dexter = ['Dexter & Randy']
 anderson = ['Susie', 'Erika']
 
 family = [gerardi, griffith, dexter, anderson]
-
-everyone = ['Marcia & Mark', 'Jessica & Tim', 'Kristi & James', 'Karen & Rob', 'Dylan', 'Bryan & Olivia', 'Dexter & Randy',
-     'Susie', 'Erika', 'Marcia & Mark', 'Jessica & Tim', 'Kristi & James', 'Karen & Rob', 'Dylan', 'Bryan & Olivia', 'Dexter & Randy',
-     'Susie', 'Erika']
-
-e = ['Marcia & Mark', 'Jessica & Tim', 'Kristi & James', 'Karen & Rob', 'Dylan', 'Bryan & Olivia', 'Dexter & Randy',
-     'Susie', 'Erika']
+everyone = [person for surname in family for person in surname]
+everyone_pool = everyone + everyone
 
 if __name__ == '__main__':
     main()
